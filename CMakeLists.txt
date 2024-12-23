@@ -10,6 +10,7 @@ project(assignment2_rt)
 find_package(catkin REQUIRED COMPONENTS
   actionlib
   actionlib_msgs
+  message_generation
   geometry_msgs
   nav_msgs
   roscpp
@@ -59,6 +60,10 @@ find_package(catkin REQUIRED COMPONENTS
 #   Message1.msg
 #   Message2.msg
 # )
+add_message_files(
+  FILES
+  Robot_info.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
