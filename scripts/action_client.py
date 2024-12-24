@@ -7,7 +7,7 @@ import assignment2_rt.msg
 from assignment2_rt.msg import Robot_info
 from nav_msgs.msg import Odometry
 
-# Callback for retrive position and velocity from the topic /odom
+# Callback for retrieve position and velocity from the topic /odom
 def odom_callback(msg):
     robot_info = Robot_info()
     robot_info.x = msg.pose.pose.position.x
@@ -74,7 +74,7 @@ def main():
     global pub_position_vel
     global client
     
-    rospy.init_node('reach_goal')
+    rospy.init_node('action_client')
     
     # Create the publisher for postion and velocity
     pub_position_vel = rospy.Publisher('/robot_position_velocity', Robot_info, queue_size=10)
