@@ -103,4 +103,4 @@ if __name__ == '__main__':
     try:
         main()
     except rospy.ROSInterruptException:
-        print("Program interrupted before completion", file=sys.stderr)
+        print("Program interrupted")
