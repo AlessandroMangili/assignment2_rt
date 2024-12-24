@@ -9,6 +9,8 @@ from nav_msgs.msg import Odometry
 
 # Callback for retrieve position and velocity from the topic /odom
 def odom_callback(msg):
+    global pub_position_vel
+    
     robot_info = Robot_info()
     robot_info.x = msg.pose.pose.position.x
     robot_info.y = msg.pose.pose.position.y
@@ -72,13 +74,10 @@ def get_input():
 
 def main():
     global pub_position_vel
-    global client
-    
     rospy.init_node('action_client')
-    
     # Create the publisher for postion and velocity
     pub_position_vel = rospy.Publisher('/robot_position_velocity', Robot_info, queue_size=10)
-    # Subscribe to /odom topic for retrive the data from the robot
+    # Subscribe to /odom topic for retrieve the data from the robot
     rospy.Subscriber('/odom', Odometry, odom_callback)
     
     # Creates the SimpleActionClient, passing the type of the action (PlanningAction) to the constructor
