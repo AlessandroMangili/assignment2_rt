@@ -7,7 +7,7 @@ import assignment2_rt.msg
 from assignment2_rt.msg import Robot_info
 from nav_msgs.msg import Odometry
 
-# Callback per ricevere la posizione e velocità dal topic /odom
+# Callback for retrive position and velocity from the topic /odom
 def odom_callback(msg):
     robot_info = Robot_info()
     robot_info.x = msg.pose.pose.position.x
@@ -15,13 +15,12 @@ def odom_callback(msg):
     robot_info.vel_x = msg.twist.twist.linear.x
     robot_info.vel_z = msg.twist.twist.angular.z
 
-    # Pubblica i dati di posizione e velocità
     pub_position_vel.publish(robot_info)
 
 def feedback_callback(feedback):
     if (feedback.stat == "Target reached!"):
         print("")
-        rospy.loginfo("Received feedback\{}\nStatus: {}\n".format(feedback.actual_pose, feedback.stat))
+        rospy.loginfo("Received feedback\n{}\nStatus: {}\n".format(feedback.actual_pose, feedback.stat))
         print("Command (s=set goal, c=cancel goal, q=quit): ")
 
 def send_goal(client, x, y):    
@@ -41,9 +40,8 @@ def send_goal(client, x, y):
 
     # Sends the goal to the action server.
     client.send_goal(goal, feedback_cb=feedback_callback)
-    
     rospy.loginfo("Goal sent")
-
+    
     # Waits for the server to finish performing the action.
     #client.wait_for_result()
 
@@ -54,7 +52,7 @@ def cancel_goal(client):
     if client.get_state() in [GoalStatus.ACTIVE, GoalStatus.PENDING]:
         rospy.loginfo("Cancelling current goal")
         client.cancel_goal()
-        rospy.sleep(0.5)  # Tempo per propagare l'annullamento
+        rospy.sleep(0.5)  # Timeout for forward the cancel
         state = client.get_state()
         if state in [GoalStatus.PREEMPTED, GoalStatus.RECALLED]:
             rospy.loginfo("Goal successfully cancelled")
@@ -74,6 +72,7 @@ def get_input():
 
 def main():
     global pub_position_vel
+    global client
     
     rospy.init_node('reach_goal')
     
