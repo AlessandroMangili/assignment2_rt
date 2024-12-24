@@ -22,13 +22,10 @@ def odom_callback(msg):
 def feedback_callback(feedback):
     if (feedback.stat == "Target reached!"):
         print("")
-        rospy.loginfo("Received feedback\n{}\nStatus: {}\n".format(feedback.actual_pose, feedback.stat))
+        rospy.logwarn("Target reached\n{}\nStatus: {}\n".format(feedback.actual_pose, feedback.stat))
         print("Command (s=set goal, c=cancel goal, q=quit): ")
 
 def send_goal(client, x, y):    
-    rospy.loginfo("Waiting that the action server is avaible")
-    client.wait_for_server()
-
     # Creates a goal to send to the action server.
     goal = assignment2_rt.msg.PlanningGoal()
     goal.target_pose.pose.position.x = x
@@ -75,24 +72,29 @@ def get_input():
 def main():
     global pub_position_vel
     rospy.init_node('action_client')
+
     # Create the publisher for postion and velocity
     pub_position_vel = rospy.Publisher('/robot_position_velocity', Robot_info, queue_size=10)
+    # Wait for the arrival of the first message on that topic
+    rospy.wait_for_message('/odom', Odometry)
     # Subscribe to /odom topic for retrieve the data from the robot
     rospy.Subscriber('/odom', Odometry, odom_callback)
     
     # Creates the SimpleActionClient, passing the type of the action (PlanningAction) to the constructor
     client = actionlib.SimpleActionClient('/reaching_goal', assignment2_rt.msg.PlanningAction)
+    rospy.loginfo("Waiting that the action server is avaible")
+    client.wait_for_server()
     
     while not rospy.is_shutdown():
-        rospy.loginfo_once("Enter 's' to set a goal, 'c' to cancel the current goal, or 'q' to quit")
-        answer = input("Command (s=set goal, c=cancel goal, q=quit): ").strip().lower()
+        rospy.loginfo_once("Enter 's' to set a goal, 'c' to cancel the current goal, 'q' to quit the action client or 'CTRL+C' for close all the simulation")
+        answer = input("Command (s=set goal, c=cancel goal, q=quit, CTRL+C=exit all): ").strip().lower()
         if answer == 's':
             x, y = get_input()
             send_goal(client, x, y)
         elif answer == 'c':
             cancel_goal(client)
         elif answer == 'q':
-            rospy.loginfo("Exiting the client")
+            rospy.loginfo("Exiting from the action client")
             break
         else:
             rospy.logwarn("Invalid command. Please try again")

@@ -22,17 +22,17 @@ def handle_last_goal_request(req):
     return TargetResponse(target_info)
     
 # 
-def service_last_target():
+def service_last_goal():
     rospy.init_node('retrieve_last_target')
     # Subscriber to receive the set goals
     rospy.Subscriber('/reaching_goal/goal', PlanningActionGoal, goal_callback)
     # Service that returns the last set goal
-    rospy.Service('/get_last_target', Target, handle_last_goal_request)
+    rospy.Service('/get_last_goal', Target, handle_last_goal_request)
     rospy.loginfo("Service node started. Waiting for requests...")
     rospy.spin()
 
 if __name__ == "__main__":
     try:
-        service_last_target()
+        service_last_goal()
     except rospy.ROSInterruptException:
         print("Program interrupted before completion", file=sys.stderr)
