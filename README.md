@@ -1,14 +1,13 @@
-# Assignment 2 - Action Client and Service Node for Robot Navigation
+# Assignment 2 (Part I) - Action Client and Service Node for Robot Navigation
 
 ## Overview
 This project involves creating a ROS package named `assignment2_rt` that implements two key components to move the robot by setting a goal to reach. These components are:
 
-1. **Action Client Node (node1)**: an action client that allows the user to set a goal or cancel it, and publishes the custom message `Robot_info`, composed of the following fields:
+1. **Action Client Node (node1)**: an action client that allows the user to set a goal or cancel it, and publishes, on the `/robot_position_velocity` topic, the custom message `Robot_info` composed of the following fields:
     - `float64 x`
     - `float64 y`
     - `float64 vel_x`
-    - `float64 vel_z`
-on the `/robot_position_velocity` topic.
+    - `float64 vel_z` 
 2. **Service Node (node2)**: a service that returns the coordinates of the last goal set by the user through the first node.
 
 ## Nodes Description
@@ -97,7 +96,7 @@ The launch file `simulation.launch` starts all the simulation nodes present in t
     - `c` to cancel an active goal, 
     - `q` to exit the program. 
     
-    **Don't worry about the messages being printed; the action client will always be listening!**
+    **Don't worry about the messages being printed, the action client will always be listening!**
   
 - **Service Node**: 
     To interact with it, just open a new terminal and use the command `rosservice call /get_last_goal`
