@@ -81,7 +81,7 @@ This node uses ROS 2 publisher to control the robot’s movement, publishing vel
 ### 2. Run the Movement Node
 - Run the node to control the robot:
   ```bash
-  ros2 run assignment2_rt robot_motion
+  ros2 run assignment2_rt motion
   ```
 - Follow the on-screen prompts to input the robot’s linear (`x`) and angular (`z`) velocities.
 
