@@ -1,4 +1,4 @@
-# Assignment 2 (Part I) - Robot Navigation with ROS 2
+# Assignment 2 (Part II) - Robot Navigation with ROS 2
 
 ## Overview
 This project involves creating a ROS 2 package named `assignment2_rt` that enables controlling a robot in a simulation environment. The functionality allows users to set linear and angular velocities, moving the robot for 3 seconds per command until the program is terminated.
@@ -40,11 +40,11 @@ This node uses ROS 2 publisher to control the robot’s movement, publishing vel
   ```
 - Clone the repository for the package:
   ```bash
-  git clone https://github.com/AlessandroMangili/Assignment2_rt
+  git clone https://github.com/AlessandroMangili/assignment2_rt
   ```
 - Switch to the ROS 2 branch:
   ```bash
-  cd Assignment2_rt
+  cd assignment2_rt
   git switch ros2
   ```
 
