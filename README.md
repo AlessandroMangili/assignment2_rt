@@ -37,7 +37,7 @@ The launch file `simulation.launch` starts all the simulation nodes present in t
 - A properly configured ROS workspace.
 - `Gazebo` and `RViz` installed
 
-## 1. Download the Package
+## 1. Clone the Package
 - Open a terminal.
 - Navigate to the `src` folder of your ROS workspace:
   ```bash
