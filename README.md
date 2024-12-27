@@ -45,11 +45,11 @@ The launch file `simulation.launch` starts all the simulation nodes present in t
   ```
 - Clone the `assignment2_rt` package repository:
   ```bash
-  git clone https://github.com/AlessandroMangili/Assignment2_rt
+  git clone https://github.com/AlessandroMangili/assignment2_rt
   ```
 -  Enter the repo and switch to the `ros1` branch:
     ```bash
-    cd Assignment2_rt
+    cd assignment2_rt
     git switch ros1
     ```
 
