@@ -36,6 +36,7 @@ The launch file `simulation.launch` starts all the simulation nodes present in t
 - **ROS** must be installed on your system.
 - A properly configured ROS workspace.
 - `Gazebo` and `RViz` installed
+- Clone the package `assignment_2_2024` at the following link: [assignment_2_2024](https://github.com/CarmineD8/assignment_2_2024)
 
 ## 1. Clone the Package
 - Open a terminal.
