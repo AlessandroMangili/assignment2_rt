@@ -6,8 +6,8 @@ This project involves creating a ROS 2 package named `assignment2_rt` that enabl
 ### Node Functionality
 The program consists of a single node that interacts with the user through the terminal to control the robot's motion:
 - **User Input**: At each step, the user is prompted to provide:
-  - Linear velocity (`x`).
-  - Angular velocity (`z`).
+  - Linear velocity (`x`)
+  - Angular velocity (`z`)
 - **Robot Motion**: The robot moves with the specified velocities for 3 seconds.
 - **Termination**: The program runs continuously until the user interrupts it.
 
@@ -27,13 +27,13 @@ This node uses ROS 2 publisher to control the robot’s movement, publishing vel
 ## Installation
 
 ### Prerequisites
-- **ROS 2** must be installed on your system.
-- A properly configured ROS 2 workspace.
+- **ROS 2** must be installed on your system
+- A properly configured ROS 2 workspace
 - Clone the package `robot_urdf` at the following link: [robot_urdf](https://github.com/CarmineD8/robot_urdf)
 - Run this command: `sudo apt-get install ros-ROS2DISTRO-xacro ros-ROS2DISTRO-joint-state-publisher ros-ROS2DISTRO-gazebo*`
 
 ### 1. Clone the Package
-- Open a terminal.
+- Open a terminal
 - Navigate to the `src` folder of your ROS 2 workspace:
   ```bash
   cd ~/ros2_ws/src
