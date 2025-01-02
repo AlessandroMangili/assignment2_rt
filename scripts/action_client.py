@@ -74,7 +74,7 @@ def main():
     rospy.init_node('action_client')
 
     # Create the publisher for postion and velocity
-    pub_position_vel = rospy.Publisher('/robot_position_velocity', Robot_info, queue_size=10)
+    pub_position_vel = rospy.Publisher('/robot_information', Robot_info, queue_size=10)
     # Wait for the arrival of the first message on that topic
     rospy.wait_for_message('/odom', Odometry)
     # Subscribe to /odom topic for retrieve the data from the robot
