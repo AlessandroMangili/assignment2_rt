@@ -4,6 +4,7 @@ from geometry_msgs.msg import Twist
 import time
 
 LINEAR_THR = 5.0
+ANGULAR_THR = 5.0
 
 class Robot(Node):
     def __init__(self):
@@ -32,6 +33,8 @@ def main(args=None):
                 x = max(x, -LINEAR_THR)
                 #y = float(input("Enter the linear velocity y: ")) # Not supported here
                 z = float(input("Enter angular velocity z: "))
+                z = min(z, ANGULAR_THR)
+                z = max(z, -ANGULAR_THR)
             except ValueError:
                 print("Invalid input. Please enter numeric values.")
                 continue 
