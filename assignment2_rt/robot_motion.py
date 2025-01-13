@@ -23,7 +23,9 @@ class Robot(Node):
         
         x_feet = x * 3.28
         y_feet = y * 3.28
-        msg = f'{x_feet} - {y_feet}'
+        result = f'{x_feet} - {y_feet}'
+        msg = String()
+        msg.data = result
         self.publisher_robot_position.publish(msg)
         
         self.get_logger().info(f'Moving robot: {self.velocity.linear.x} forward and {self.velocity.angular.z} angular')
