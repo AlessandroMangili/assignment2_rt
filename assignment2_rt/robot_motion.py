@@ -2,6 +2,7 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
+from std_msgs.msg import Bool
 import time
 
 LINEAR_THR = 5.0
@@ -13,7 +14,9 @@ class Robot(Node):
         # Publish the new velocity on the /cmd_vel topic
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
         self.publisher_robot_position = self.create_publisher(String, 'robot_position', 10)
+        self.sub = self.subscriptions(Bool, 'control_robot', self.control_callback, 10)
         self.velocity = Twist()
+        self.stop = False
 
     def move_robot(self, x, y, z):
         self.velocity.linear.x = x
@@ -29,6 +32,14 @@ class Robot(Node):
         self.publisher_robot_position.publish(msg)
         
         self.get_logger().info(f'Moving robot: {self.velocity.linear.x} forward and {self.velocity.angular.z} angular')
+        
+    def control_callback(self, msg):
+        self.stop = msg.data
+        if msg.data:
+            self.get_logger().info('Robot stopped')
+        else:
+            self.get_logger().info('Robot restart')
+        
 
 def main(args=None):
     rclpy.init(args=args)
@@ -36,6 +47,8 @@ def main(args=None):
 
     try:
         while rclpy.ok():
+            if robot.stop:
+                continue
             # Ask the user to insert the values for linear velocity and angular
             try:
                 x = float(input("Enter the linear velocity x: "))

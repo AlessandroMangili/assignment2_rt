@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'motion = assignment2_rt.robot_motion:main'
+            'motion = assignment2_rt.robot_motion:main',
+            'service = assignment2_rt.service:main',
         ],
     },
 )
