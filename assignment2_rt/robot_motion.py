@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
+from std_msgs.msg import String
 import time
 
 LINEAR_THR = 5.0
@@ -11,6 +12,7 @@ class Robot(Node):
         super().__init__('move_robot_node')
         # Publish the new velocity on the /cmd_vel topic
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.publisher_robot_position = self.create_publisher(String, 'robot_position', 10)
         self.velocity = Twist()
 
     def move_robot(self, x, y, z):
@@ -18,6 +20,12 @@ class Robot(Node):
         self.velocity.linear.y = y
         self.velocity.angular.z = z
         self.publisher_.publish(self.velocity)
+        
+        x_feet = x * 3.28
+        y_feet = y * 3.28
+        msg = f'{x_feet} - {y_feet}'
+        self.publisher_robot_position.publish(msg)
+        
         self.get_logger().info(f'Moving robot: {self.velocity.linear.x} forward and {self.velocity.angular.z} angular')
 
 def main(args=None):
