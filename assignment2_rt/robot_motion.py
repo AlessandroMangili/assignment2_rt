@@ -47,6 +47,8 @@ def main(args=None):
 
     try:
         while rclpy.ok():
+            rclpy.spin_once(robot, timeout_sec=0.1)
+            
             if robot.stop:
                 continue
             # Ask the user to insert the values for linear velocity and angular
@@ -71,7 +73,6 @@ def main(args=None):
         # Handle the interrupt (Ctrl+C)
         print("Program interrupted")
     except Exception as e:
-        # Handle other exception
         print(f"An error occurred: {e}")
     finally:
         robot.destroy_node()

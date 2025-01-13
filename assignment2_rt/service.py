@@ -14,14 +14,14 @@ class StopRestartService(Node):
 
     def set_velocity_callback(self, request, response):
         stop = request.data   # If the request.data is true, then stop the robot, otherwise restart it
-        
         if stop:
             twist = Twist()
             twist.linear.x = 0.0
             twist.angular.z = 0.0
             self.publisher_cmd.publish(twist)
         
-        msg = request.data
+        msg = Bool()
+        msg.data = request.data
         self.publisher_.publish(msg)
         
 
@@ -35,9 +35,17 @@ class StopRestartService(Node):
 def main(args=None):
     rclpy.init(args=args)
     control_robot = StopRestartService()
-    rclpy.spin(control_robot)
-    control_robot.destroy_node()
-    rclpy.shutdown()
+    
+    try:
+        rclpy.spin(control_robot)
+    except KeyboardInterrupt:
+        # Handle the interrupt (Ctrl+C)
+        print("Program interrupted")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        control_robot.destroy_node()
+        #rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
