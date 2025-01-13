@@ -14,7 +14,7 @@ class Robot(Node):
         # Publish the new velocity on the /cmd_vel topic
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
         self.publisher_robot_position = self.create_publisher(String, 'robot_position', 10)
-        self.sub = self.subscriptions(Bool, 'control_robot', self.control_callback, 10)
+        self.sub = self.create_subscription(Bool, 'control_robot', self.control_callback, 10)
         self.velocity = Twist()
         self.stop = False
 
